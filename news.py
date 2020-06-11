@@ -13,6 +13,17 @@ import string
 import requests 
 import pandas as pd
 import heapq
+import email, smtplib, ssl
+
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+from apiData import SENDGRID_API_KEY
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 # URL of news site used
 url = 'https://www.theverge.com'
@@ -32,8 +43,9 @@ for ele in elements:
 
 df = pd.DataFrame(temp.items(), columns=['title', 'link'])
 
+count = 0
 # Iterating through each row in the dataframe
-for row in df.itertuples():
+for row in df.head(6).itertuples():
 
     # Visiting each article
     article = requests.get(row.link)
@@ -87,4 +99,21 @@ for row in df.itertuples():
     textfinal = textfinal.encode('ascii','ignore')
     textfinal = str(textfinal)
 
-    print(textfinal)
+    df.loc[count,'Summary']=summary
+    count+=1
+    print("*************************")
+    
+# Sending email
+message = Mail(
+    from_email='yasserizaheer@gmail.com',
+    to_emails='yasserizaheer@gmail.com',
+    subject='Sending with Twilio SendGrid is Fun',
+    html_content='<strong>and easy to do anywhere, even with Python</strong>')
+try:
+    sg = SendGridAPIClient(SENDGRID_API_KEY)
+    response = sg.send(message)
+    print(response.status_code)
+    print(response.body)
+    print(response.headers)
+except Exception as e:
+    print(e.message)
