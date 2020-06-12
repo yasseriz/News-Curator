@@ -102,13 +102,14 @@ for row in df.head(6).itertuples():
     df.loc[count,'Summary']=summary
     count+=1
     print("*************************")
-    
+
+test = "aksdasdbadad"
 # Sending email
 message = Mail(
-    from_email='yasserizaheer@gmail.com',
+    from_email='mail@yasserzaheer.com',
     to_emails='yasserizaheer@gmail.com',
-    subject='Sending with Twilio SendGrid is Fun',
-    html_content='<strong>and easy to do anywhere, even with Python</strong>')
+    subject='Sending test emails are Fun',
+    html_content=f" <strong>and {test} easy to do anywhere, even with Python</strong>")
 try:
     sg = SendGridAPIClient(SENDGRID_API_KEY)
     response = sg.send(message)
