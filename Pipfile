@@ -10,6 +10,7 @@ nltk = "*"
 beautifulsoup4 = "*"
 lxml = "*"
 sendgrid = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "3.7"

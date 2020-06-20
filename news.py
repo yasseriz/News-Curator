@@ -25,6 +25,8 @@ import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
+from jinja2 import Environment, FileSystemLoader
+
 # URL of news site used
 url = 'https://www.theverge.com'
 
@@ -103,13 +105,18 @@ for row in df.head(6).itertuples():
     count+=1
     print("*************************")
 
-test = "aksdasdbadad"
+# Templating email content
+file_loader = FileSystemLoader('Template')
+env = Environment(loader=file_loader)
+template = env.get_template('emailTemplate.html')
+msg = template.render(df=df)
+
 # Sending email
 message = Mail(
     from_email='mail@yasserzaheer.com',
     to_emails='yasserizaheer@gmail.com',
     subject='Sending test emails are Fun',
-    html_content=f" <strong>and {test} easy to do anywhere, even with Python</strong>")
+    html_content=msg)
 try:
     sg = SendGridAPIClient(SENDGRID_API_KEY)
     response = sg.send(message)
