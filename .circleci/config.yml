@@ -4,6 +4,7 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
+build:
   curateNews:
     executor: python/default
     steps:
@@ -21,15 +22,16 @@ jobs:
           name: news
 
 workflows:
-  version: 2.1
-  nightly:
-    triggers:
-      - schedule:
-          cron: "34 22 * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - curateNews
+  workflow:
+    version: 2
+    nightly:
+      triggers:
+        - schedule:
+            cron: "0 0 * * *"
+            filters:
+              branches:
+                only:
+                  - master
+      jobs:
+        - curateNews
 
