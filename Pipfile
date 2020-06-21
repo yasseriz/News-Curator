@@ -11,6 +11,8 @@ beautifulsoup4 = "*"
 lxml = "*"
 sendgrid = "*"
 jinja2 = "*"
+requests = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"
