@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  python: circleci/python@0.2.1
+  
 jobs:
   newsCurator:
     executor: python/default
@@ -16,7 +19,7 @@ jobs:
             pipenv run python news.py
           
 workflows:
-  version: 2
+  version: 2.1
   nightly:
     triggers:
       - schedule:
