@@ -4,7 +4,7 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  curateNews:
+  build:
     executor: python/default
     steps:
       - checkout
@@ -28,7 +28,6 @@ workflows:
             branches:
               only:
                 - master
-                - master
     jobs:
-      - curateNews
+      - build
 
