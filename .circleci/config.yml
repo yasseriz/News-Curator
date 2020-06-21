@@ -22,14 +22,14 @@ jobs:
 
 workflows:
   version: 2.1
-   nightly:
-     triggers:
-       - schedule:
-           cron: "0 8 * * *"
-           filters:
-             branches:
-               only:
-                 - master
-     jobs:
-       - curateNews
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 8 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - curateNews
 
