@@ -20,12 +20,14 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from apiData import SENDGRID_API_KEY
+# from apiData import SENDGRID_API_KEY
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 from jinja2 import Environment, FileSystemLoader
+
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 
 # URL of news site used
 url = 'https://www.theverge.com'
