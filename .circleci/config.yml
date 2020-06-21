@@ -4,7 +4,7 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  build:
+  newCurator:
     executor: python/default
     steps:
       - checkout
@@ -24,10 +24,11 @@ workflows:
     triggers:
       - schedule:
           cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - build
+          jobs:
+            - newCurator
+            filters:
+              branches:
+                only:
+                  - master
+    
 
