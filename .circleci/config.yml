@@ -19,16 +19,15 @@ jobs:
             pipenv run python news.py
           
 workflows:
-  workflow:
-    version: 2
-    nightly:
-      triggers:
-        - schedule:
-            cron: "0 0 * * *"
-            filters:
-              branches:
-                only:
-                  - master
-      jobs:
-        - curateNews
+  version: 2
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - curateNews
 
