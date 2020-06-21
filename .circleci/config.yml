@@ -4,7 +4,6 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-build:
   curateNews:
     executor: python/default
     steps:
@@ -19,8 +18,6 @@ build:
             echo $SENDGRID_API_KEY
             pipenv run python news.py
           
-          name: news
-
 workflows:
   workflow:
     version: 2
