@@ -1,10 +1,7 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@0.2.1
-
 jobs:
-  newCurator:
+  newsCurator:
     executor: python/default
     steps:
       - checkout
@@ -24,11 +21,10 @@ workflows:
     triggers:
       - schedule:
           cron: "0 0 * * *"
-          jobs:
-            - newCurator
-            filters:
-              branches:
-                only:
-                  - master
-    
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - newsCurator
 
