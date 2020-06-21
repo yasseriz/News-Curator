@@ -28,6 +28,7 @@ workflows:
             branches:
               only:
                 - master
+                - master
     jobs:
       - curateNews
 
