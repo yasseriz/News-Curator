@@ -1,0 +1,33 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+  
+jobs:
+  newsCurator:
+    executor: python/default
+    steps:
+      - checkout
+      - run:
+          command: |
+            sudo pip install pipenv
+            pipenv install
+            echo $SENDGRID_API_KEY
+            pipenv run python news.py
+          
+workflows:
+  version: 2.1
+  commit:
+    jobs:
+      - newsCurator
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - newsCurator
+
