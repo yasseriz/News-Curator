@@ -1,7 +1,8 @@
-# Include necessary libraries
+# Importing necessary libraries
 from bs4 import BeautifulSoup
 import urllib.request as url
 import re
+
 import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
@@ -9,22 +10,19 @@ from nltk import sent_tokenize
 from nltk.corpus import stopwords
 from nltk import word_tokenize
 stop_word = stopwords.words('english')
+
 import string
 import requests 
 import pandas as pd
 import heapq
-import email, smtplib, ssl
-
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from datetime import date
 
 # from apiData import SENDGRID_API_KEY
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
+# HTML Templating
 from jinja2 import Environment, FileSystemLoader
 
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
@@ -113,11 +111,16 @@ env = Environment(loader=file_loader)
 template = env.get_template('emailTemplate.html')
 msg = template.render(df=df)
 
+today = date.today()
+d8 = today.strftime("%B %d, %Y")
+print(type(d8))
+subjectHead = 'News for the day ' + d8
+
 # Sending email
 message = Mail(
     from_email='mail@yasserzaheer.com',
     to_emails='yasserizaheer@gmail.com',
-    subject='Sending test emails are Fun',
+    subject=subjectHead,
     html_content=msg)
 try:
     sg = SendGridAPIClient(SENDGRID_API_KEY)
